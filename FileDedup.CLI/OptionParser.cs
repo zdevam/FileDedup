@@ -11,15 +11,15 @@ public class OptionParser<T>(List<OptionDefinition<T>> optionsDefinitions) where
         {
             var currentOption = args[i];
 
-            if (TryGetoptionDefinition(currentOption, out OptionDefinition<T> optionDefinition)
-                && !TrySetOption(optionDefinition, dedupOptions, args, ref i, out var error))
-            {
-                errors.Add(error);
-            }
-            else
+            if (!TryGetoptionDefinition(currentOption, out OptionDefinition<T> optionDefinition))
             {
                 errors.Add($"Invalid argument $'{currentOption}'");
                 continue;
+            }
+
+            if (!TrySetOption(optionDefinition, dedupOptions, args, ref i, out var error))
+            {
+                errors.Add(error);
             }
         }
 
@@ -30,7 +30,7 @@ public class OptionParser<T>(List<OptionDefinition<T>> optionsDefinitions) where
     {
         string? arg = default;
 
-        if (optionDefinition is OptionWithParameterDefinition<T> && args.Length < i + 1)
+        if (optionDefinition is OptionWithParameterDefinition<T> && args.Length < i + 2)
         {
             error = $"No argument provided for {optionDefinition.LongName}/{optionDefinition.ShortName}";
             return false;

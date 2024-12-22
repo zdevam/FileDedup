@@ -18,6 +18,8 @@ public class CliTool(OptionParser<DedupOptions> optionsparser, FileDeduper fileD
             {
                 Console.WriteLine(error);
             }
+
+            return;
         }
 
         await fileDeduper.ExecuteAsync(options);
@@ -25,6 +27,8 @@ public class CliTool(OptionParser<DedupOptions> optionsparser, FileDeduper fileD
 
     private static void PrintHelp()
     {
-        Console.WriteLine("HALLUP!");
+        Console.WriteLine("Usage: FileDedup.CLI.exe path [pathtodirectory] [recursive] [clean]");
+        Console.WriteLine("Path and path to directory must be specified");
+        Console.WriteLine("Defaults are: not recursive and no cleaning");
     }
 }

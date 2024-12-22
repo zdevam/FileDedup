@@ -39,6 +39,7 @@ public sealed class DuplicateReportGenerator(IFileSystem fileSystem, IFileCompar
             foreach (var duplicate in detectedDuplicates)
             {
                 fileList.Remove(duplicate);
+                duplicatesList.Add(duplicate);
             }
 
             if (duplicatesList.Count > 1)
