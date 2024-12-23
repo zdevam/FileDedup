@@ -3,16 +3,19 @@
 namespace FileDedup.Core;
 public sealed class DuplicateReport : IEnumerable<KeyValuePair<Guid, List<FileInfo>>>
 {
-    private readonly IDictionary<Guid, List<FileInfo>> duplicates = new Dictionary<Guid, List<FileInfo>>();
+    private readonly Dictionary<Guid, List<FileInfo>> duplicates = [];
 
-    public void AddDuplicateList(List<FileInfo> fileInfoList)
+    public void AddDuplicateList(IEnumerable<FileInfo> fileInfos)
     {
-        duplicates[Guid.NewGuid()] = fileInfoList;
+        duplicates[Guid.NewGuid()] = fileInfos.ToList();
     }
 
     public IEnumerator<KeyValuePair<Guid, List<FileInfo>>> GetEnumerator()
     {
-        return duplicates.GetEnumerator();
+        foreach (var item in duplicates)
+        {
+            yield return KeyValuePair.Create(item.Key, item.Value.ToList());
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator()

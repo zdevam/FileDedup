@@ -1,9 +1,11 @@
 ﻿namespace FileDedup.CLI;
-public class OptionParser<T>(List<OptionDefinition<T>> optionsDefinitions) where T : new()
+public class OptionParser<T>(IEnumerable<OptionDefinition<T>> optionsDefinitions) where T : new()
 {
-    public bool TryParseOptions(string[] args, out T dedupOptions, out List<string> errors)
+    public bool TryParseOptions(string[] args, out T dedupOptions, out IReadOnlyList<string> errors)
     {
-        errors = [];
+        ArgumentNullException.ThrowIfNull(args);
+
+        var founderrors = new List<string>();
 
         dedupOptions = new T();
 
@@ -13,15 +15,17 @@ public class OptionParser<T>(List<OptionDefinition<T>> optionsDefinitions) where
 
             if (!TryGetoptionDefinition(currentOption, out OptionDefinition<T> optionDefinition))
             {
-                errors.Add($"Invalid argument $'{currentOption}'");
+                founderrors.Add($"Invalid argument $'{currentOption}'");
                 continue;
             }
 
             if (!TrySetOption(optionDefinition, dedupOptions, args, ref i, out var error))
             {
-                errors.Add(error);
+                founderrors.Add(error);
             }
         }
+
+        errors = founderrors;
 
         return errors.Count == 0;
     }

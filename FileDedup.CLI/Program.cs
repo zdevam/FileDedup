@@ -7,7 +7,7 @@ namespace FileDedup.CLI;
 
 internal class Program
 {
-    static async Task Main(string[] args)
+    public static async Task Main(string[] args)
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
@@ -17,7 +17,6 @@ internal class Program
         servicecollection.AddFileSystem();
         servicecollection.AddHashComparer();
         servicecollection.AddCliTool();
-
 
         var host = builder.Build();
 

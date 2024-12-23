@@ -3,10 +3,9 @@ public class FileDeduper(DuplicateReportGenerator reportGenerator, FileCleaner f
 {
     public async Task ExecuteAsync(DedupOptions options)
     {
-        if (options.Path == null)
-        {
-            throw new ArgumentNullException(options.Path);
-        }
+        ArgumentNullException.ThrowIfNull(options);
+
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(options.Path);
 
         var report = await reportGenerator.GenerateAsync(options.Path, options.Recursive);
 

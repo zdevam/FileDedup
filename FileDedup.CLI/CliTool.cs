@@ -5,6 +5,8 @@ public class CliTool(OptionParser<DedupOptions> optionsparser, FileDeduper fileD
 {
     public async Task ExecuteAsync(string[] args)
     {
+        ArgumentNullException.ThrowIfNull(args);
+
         if (args.Length == 0)
         {
             PrintHelp();
