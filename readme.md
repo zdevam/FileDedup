@@ -1,6 +1,6 @@
 # FileDedup
 
-FileDedup is a tool to find dupplicates files with in a specified directory to optionally clean them.
+FileDedup is a tool to find duplicate files with in a specified directory to optionally clean them.
 
 It automatically generates a report file of detected duplicates for inspection.
 
