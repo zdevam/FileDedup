@@ -9,7 +9,7 @@ public class CliTool(OptionParser<DedupOptions> optionsparser, FileDeduper fileD
 
         if (args.Length == 0)
         {
-            PrintHelp();
+            Console.WriteLine(Help);
             return;
         }
 
@@ -26,14 +26,12 @@ public class CliTool(OptionParser<DedupOptions> optionsparser, FileDeduper fileD
 
         await fileDeduper.ExecuteAsync(options);
     }
-
-    private static void PrintHelp()
-    {
-        Console.WriteLine("*** FileDedup ***");
-        Console.WriteLine("Usage: FileDedup.CLI.exe path [pathtodirectory] [recursive] [clean]");
-        Console.WriteLine("Path and path to directory must be specified");
-        Console.WriteLine("Defaults are: not recursive and no cleaning");
-        Console.WriteLine();
-        Console.WriteLine("USE AT YOUR OWN RISK!!!");
-    }
+    private static string Help => @"
+*** FileDedup ***
+Usage: FileDedup.CLI.exe path [pathtodirectory] [recursive] [clean]
+Path and path to directory must be specified
+Defaults are: not recursive and no cleaning
+    
+USE AT YOUR OWN RISK!!!
+";
 }
