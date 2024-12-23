@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileDedup.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "path \"c:\\test\\duplicate test\" \r\n"
+    }
+  }
+}
